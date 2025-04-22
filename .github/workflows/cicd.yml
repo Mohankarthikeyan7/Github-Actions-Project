@@ -124,6 +124,8 @@ jobs:
   deploy_to_kubernetes:
     runs-on: self-hosted
     needs: build_docker_image_and_push
+    env:
+      KUBECONFIG: $HOME/.kube/config 
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
@@ -146,8 +148,9 @@ jobs:
       run: |
         mkdir -p $HOME/.kube
         echo "${{ secrets.EKS_KUBECONFIG }}" > $HOME/.kube/config
+        export KUBECONFIG=$HOME/.kube/config
     - name: Deploy to EKS
       run: |
-        kubectl get all
+        kubectl apply -f ds.yml
 
   
