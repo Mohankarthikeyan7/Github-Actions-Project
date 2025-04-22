@@ -148,6 +148,6 @@ jobs:
         echo "${{ secrets.EKS_KUBECONFIG }}" > $HOME/.kube/config
     - name: Deploy to EKS
       run: |
-        kubectl apply --validate=false -f ds.yml
+        kubectl apply --validate=false -f ds.yml 
 
   
