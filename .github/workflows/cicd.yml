@@ -153,6 +153,13 @@ jobs:
         export KUBECONFIG=$HOME/.kube/config
     - name: Deploy to EKS
       run: |
-        kubectl get nodes
+        if ! command -v kubectl &> /dev/null
+         then
+         echo "kubectl not found!"
+        exit 1
+          else
+         echo "kubectl is installed:"
+         kubectl version --client
+        fi
 
   
